@@ -1,0 +1,17 @@
+.first-time{
+    margin: calc(var(--margin-xxl)*1.5) 0 calc(var(--margin-xxl)*2.8) 0;
+}
+
+.first-time__container{
+    margin: 0 calc(var(--margin-xxl)*3);
+}
+
+.first-time__container--title{
+    font-size: var(--line-size-xl);
+    color: var(--color-beta);
+}
+
+.first-time__container--subtitle{
+    font-family: var(--font-secondary);
+    margin: 0 calc(var(--margin-xxl));
+}

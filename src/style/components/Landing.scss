@@ -1,0 +1,30 @@
+.landing{
+    display: flex;
+    position: relative;
+    justify-content: space-evenly;
+    margin: calc(var(--margin-xxl)*2) 0;
+  }
+  
+  .landing__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .landing__container--title{
+    font-size: var(--font-size-xxl);
+    color: var(--color-beta);
+    margin: 0;
+    text-shadow: 3px 3px 6px black;
+  }
+  
+  .landing__container--subtitle{
+    font-size: var(--font-size-m);
+    margin: 0;
+    text-align: end;
+    text-shadow: 3px 3px 6px black;
+  }
+  
+  .landing__logo{
+    height: 400px;
+  }

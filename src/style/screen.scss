@@ -1,0 +1,26 @@
+//settings
+
+//generic
+@import './generic/reset.scss';
+
+//element
+@import './elements/page.scss';
+
+//component
+@import './components/Header.scss';
+@import './components/Landing.scss';
+@import './components/About.scss';
+@import './components/FirstTime.scss';
+@import './components/Footer.scss';
+
+
+//objects
+@import './objects/hide-accessible.scss';
+
+
+//utilities
+@import './utilities/widths.scss';
+
+//media queries
+@import './MediaQueries/mediaquery.scss';
+@import './MediaQueries/printstyles.scss';

@@ -1,0 +1,20 @@
+.about{
+    margin: var(--margin-xl) 0;
+  }
+  
+  .about__bg{
+    margin: var(--margin-xxl) 0;
+  }
+  
+  .about__text{
+    font-family: var(--font-secondary);
+    position: absolute;
+    bottom: 932px;
+    font-size: var(--line-size-l);
+    margin: 0 300px;
+    color: var(--color-alpha);
+  }
+  
+  .about__text--color{
+    color: var(--color-beta);
+  }

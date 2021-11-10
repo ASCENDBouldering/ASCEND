@@ -1,0 +1,62 @@
+:root{
+	--color-light: #FFFFFF;
+	--color-alpha: #161616;
+	--color-alpha-x: #414C5C;
+	--color-beta: #c7493a;
+  
+	--margin-xxl: 100px;
+	--margin-xl: 48px;
+	--margin-l: 24px;
+	--margin-m: 16px;
+	--margin-s: 8px;
+
+  --font-sise-s: 18px;
+  --font-size-m: 24px;
+  --line-size-l: 32px;
+  --line-size-xl: 80px;
+  --font-size-xxl: 170px;
+  --line-height: 12px;
+
+  --font-primary: Aquire, sans-serif;
+  --font-secondary: Lato, sans-serif;
+  }
+  
+  
+  html,
+  body {
+    font-family: var(--font-primary) ,sans-serif;
+    color: var(--color-light);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  @font-face {
+    font-family: "AquireBold";
+    src: url("./AquireBold.otf") format("otf")
+  }
+
+  @font-face {
+    font-family: "LatoRegular";
+    src: url("./LatoRegular.ttf") format("ttf")
+  }
+  
+  $font-stack: 'Aquire', sans-serif;
+  $font-stack2: 'Lato', sans-serif;
+
+::selection {
+	background: var(--alpha-color);
+	color: var(--alpha-background);
+}
+
+.background{
+  position: fixed;
+  top: 0;
+  z-index: -1;
+}
+
+.content{
+  position: relative;
+}
