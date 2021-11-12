@@ -10,11 +10,11 @@
 	--margin-m: 16px;
 	--margin-s: 8px;
 
-  --font-sise-s: 18px;
-  --font-size-m: 24px;
-  --font-size-l: 32px;
-  --font-size-xl: 80px;
-  --font-size-xxl: 170px;
+  --font-sise-s: 1rem;
+  --font-size-m: 1.5rem;
+  --font-size-l: 2rem;
+  --font-size-xl: 5rem;
+  --font-size-xxl: 10rem;
   --line-height: 12px;
 
   --font-primary: Aquire, sans-serif;
@@ -56,6 +56,8 @@
   position: fixed;
   top: 0;
   z-index: -1;
+  width: 100%;
+  height: 100%;
 }
 
 .content{
