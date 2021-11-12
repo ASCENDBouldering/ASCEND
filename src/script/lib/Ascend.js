@@ -1,6 +1,6 @@
 //Hoofdmodule general functions
 const PortfolioUI = (function () {
-    let ContentHolder = null;
+    let ContentHolder = null, FirstTime = null, Schedules = null, About = null, Contact = null, Rules = null;
     const x = window.innerWidth, y = window.innerHeight, btnSize = 50;
 
     const isMobile = () => {
@@ -9,9 +9,30 @@ const PortfolioUI = (function () {
         return check;
       };
 
-    const AppSetup = function ({ ContentClass }) {
+    const AppSetup = function ({ ContentClass, FirstTimeClass, SchedulesClass, AboutClass, ContactClass, RulesClass }) {
         ContentHolder = document.querySelector(ContentClass);
+        FirstTime = document.querySelector(FirstTimeClass);
+        Schedules = document.querySelector(SchedulesClass);
+        About = document.querySelector(AboutClass);
+        Contact = document.querySelector(ContactClass);
+        Rules = document.querySelector(RulesClass);
     }
+
+    FirstTime.addEventListener("click", () => {
+        
+    })
+    Schedules.addEventListener("click", () => {
+
+    })
+    About.addEventListener("click", () => {
+
+    })
+    Contact.addEventListener("click", () => {
+
+    })
+    Rules.addEventListener("click", () => {
+
+    })
 
     return {
         AppSetup: AppSetup,

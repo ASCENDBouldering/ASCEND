@@ -1,5 +1,5 @@
 :root{
-	--color-light: #FFFFFF;
+	--color-light: #DBDBDB;
 	--color-alpha: #161616;
 	--color-alpha-x: #414C5C;
 	--color-beta: #c7493a;
@@ -12,8 +12,8 @@
 
   --font-sise-s: 18px;
   --font-size-m: 24px;
-  --line-size-l: 32px;
-  --line-size-xl: 80px;
+  --font-size-l: 32px;
+  --font-size-xl: 80px;
   --font-size-xxl: 170px;
   --line-height: 12px;
 
@@ -31,6 +31,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    scroll-behavior: smooth;
   }
   
   @font-face {
@@ -59,4 +60,8 @@
 
 .content{
   position: relative;
+}
+
+.content__unavailable{
+  color: grey;
 }
