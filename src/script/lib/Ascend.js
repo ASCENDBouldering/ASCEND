@@ -1,8 +1,7 @@
 //Hoofdmodule general functions
 const AscendUI = (function () {
-    let HeaderContent = null, MobileHeaderContent = null, FooterContent = null, ContentHolder = null, MobileNavBtn = null, MobileNav = null, MobileNavHider = null;
+    let HeaderContent = null, MobileHeaderContent = null, FooterContent = null, ContentHolder = null, MobileNavBtn = null, MobileNav = null, MobileNavHider = null, MobileNavBg = null, FAQHolder = null;
     const x = window.innerWidth, y = window.innerHeight, btnSize = 50;
-    let MobileNavEnabled = false;
 
     const IsMobile = () => {
         let check = false;
@@ -10,80 +9,73 @@ const AscendUI = (function () {
         return check;
     };
 
-    // const isMobile = () => {
-    //     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    // }
-
-    const AppSetup = function ({ HeaderClass, MobileHeaderClass, MobileNavBtnClass, MobileNavClass, MobileNavHiderClass, FooterClass, ContentClass, FAQArrowClasses, FAQAnswerClasses, FAQContainerClasses }) {
-        HeaderContent = document.querySelector(HeaderClass);
-
+    const AppSetup = function ({ HeaderClass, MobileHeaderClass, MobileNavBtnClass, MobileNavClass, MobileNavHiderClass, MobileNavBGClass, FooterClass, ContentClass, FAQHolderClass, FAQArrowClass, FAQAnswerClass, FAQContainerClass }) {
         let isMobile = IsMobile();
+
+        HeaderContent = document.querySelector(HeaderClass);
         HeaderContent.innerHTML = Header(isMobile);
-        if(isMobile){
+        if (isMobile) {
             MobileHeaderContent = document.querySelector(MobileHeaderClass);
             MobileHeaderContent.innerHTML = MobileHeader(isMobile);
+
+            MobileNavBtn = document.querySelector(MobileNavBtnClass)
+            MobileNav = document.querySelector(MobileNavClass)
+            MobileNavHider = document.querySelector(MobileNavHiderClass)
+            MobileNavBg = document.querySelector(MobileNavBGClass)
+
+            GenerateMobileNavBtnClick();
         }
-        
-        MobileNavBtn = document.querySelectorAll(MobileNavBtnClass)
-        MobileNav = document.querySelector(MobileNavClass)
-        MobileNavHider = document.querySelector(MobileNavHiderClass)
-        
+
+
         FooterContent = document.querySelector(FooterClass);
         FooterContent.innerHTML = Footer();
-        
+
+        FAQHolder = document.querySelector(FAQHolderClass);
+        FAQHolder.innerHTML = AscendModule.AppendFAQs();
+        GenerateFAQEventListeners(FAQArrowClass, FAQAnswerClass, FAQContainerClass);
+
         ContentHolder = document.querySelector(ContentClass);
-        GenerateFAQEventListeners(FAQArrowClasses, FAQAnswerClasses, FAQContainerClasses);
-        GenerateMobileNavBtnClick();
     }
 
-    const GenerateFAQEventListeners = (ArrowClasses, AnswerClasses, ContainerClasses) => {
-        for (let i = 0; i < ContainerClasses.length; i++) {
-            const arrow = document.querySelector(ArrowClasses[i]);
-            const answer = document.querySelector(AnswerClasses[i]);
-            const container = document.querySelector(ContainerClasses[i]);
+    const GenerateFAQEventListeners = (ArrowClass, AnswerClass, ContainerClass) => {
+        const arrows = document.querySelectorAll(ArrowClass);
+        const answers = document.querySelectorAll(AnswerClass);
+        const containers = document.querySelectorAll(ContainerClass);
+        for (let i = 0; i < containers.length; i++) {
+            const arrow = arrows[i];
+            const answer = answers[i];
+            const container = containers[i];
 
             container.addEventListener("click", () => {
-                if (container.classList.contains("first-time__question-container--checked")) {
-                    container.classList.add("first-time__question-container--unchecked")
-                    container.classList.remove("first-time__question-container--checked")
-
-                    answer.classList.add("first-time__answer--unchecked")
-                    answer.classList.remove("first-time__answer--checked")
-                }
-                else {
-                    container.classList.add("first-time__question-container--checked")
-                    container.classList.remove("first-time__question-container--unchecked")
-
-                    answer.classList.add("first-time__answer--checked")
-                    answer.classList.remove("first-time__answer--unchecked")
-                }
-
-                RepositionAbout()
+                container.classList.toggle("first-time__question-container--checked")
+                answer.classList.toggle("first-time__answer--checked")
             })
         }
     }
 
     const GenerateMobileNavBtnClick = () => {
-        for (let i = 0; i < MobileNavBtn.length; i++) {
-            const element = MobileNavBtn[i];
-            element.addEventListener('click', () => {
-                if(MobileNavEnabled){
-                    MobileNav.classList.remove("mobile-nav-container--enabled")
-                    MobileNavHider.classList.remove("mobile-nav-hider--enabled")
-                }
-                else{
-                    MobileNav.classList.add("mobile-nav-container--enabled")
-                    MobileNavHider.classList.add("mobile-nav-hider--enabled")
-                }
-                MobileNavEnabled = !MobileNavEnabled;
-            })
-        }
+        MobileNavBtn.addEventListener('click', () => {
+            MobileNav.classList.toggle("mobile-nav-container--enabled")
+            MobileNavHider.classList.toggle("mobile-nav-hider--enabled")
+            MobileNavBg.classList.toggle("mobile-nav-bg--enabled")
+            ToggleMenuBtn()
+        })
 
-        MobileNavHider.addEventListener('click', () =>{
+        MobileNavHider.addEventListener('click', () => {
             MobileNav.classList.remove("mobile-nav-container--enabled")
             MobileNavHider.classList.remove("mobile-nav-hider--enabled")
             MobileNavEnabled = false;
         })
+    }
+
+    const ToggleMenuBtn = () => {
+        const btnElement1 = MobileNavBtn.querySelector(".nav-button__element--top")
+        const btnElement2 = MobileNavBtn.querySelector(".nav-button__element--middle")
+        const btnElement3 = MobileNavBtn.querySelector(".nav-button__element--bottom")
+
+        btnElement1.classList.toggle("nav-button__element--top-toggled");
+        btnElement2.classList.toggle("nav-button__element--middle-toggled");
+        btnElement3.classList.toggle("nav-button__element--bottom-toggled");
     }
 
     return {

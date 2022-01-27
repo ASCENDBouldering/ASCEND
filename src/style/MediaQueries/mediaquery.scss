@@ -18,6 +18,11 @@
 */
 
 @media (min-width: 408px) {
+    .header{
+        margin: var(--margin-l);
+        margin-bottom: calc(var(--margin-xl)*6 - var(--margin-l));
+    }
+
     .landing__container--title{
         font-size: calc(var(--font-size-xl)/1.5);
     }
@@ -32,7 +37,6 @@
     
     .about__text{
         font-size: var(--font-size-s);
-        // bottom: 46%;
         margin: 0 var(--margin-l);
     }
     .first-time{
@@ -74,7 +78,6 @@
     }
     
     .about__text{
-        // bottom: 37%;
         font-size: var(--font-size-s);
         margin: 0 var(--margin-xl);
     }
@@ -128,7 +131,6 @@
     }
     
     .about__text{
-        // bottom: 34%;
         font-size: var(--font-size-m);
         margin: 0 300px;
     }
@@ -153,9 +155,6 @@
 }
 
 @media (min-width:1600px) {
-    .about__text{
-        // bottom: 33%;
-    }
     .first-time{
         margin: calc(var(--margin-xxl)*1.5) 0 calc(var(--margin-xxl)*2.8) 0;
     }
@@ -166,7 +165,4 @@
 }
 
 @media (min-width:1800px) {
-    .about__text{
-        // bottom: 43%;
-    }
 }

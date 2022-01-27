@@ -9,11 +9,13 @@
 			MobileNavBtnClass: ".js-mobile-nav-btn",
 			MobileNavClass: ".js-mobile-nav",
 			MobileNavHiderClass: ".js-mobile-nav--hider",
+			MobileNavBGClass: ".js-mobile-nav--bg",
 			FooterClass: ".footer",
 			ContentClass: ".content-holder",
-			FAQArrowClasses: [    ".js-arrow-1",    ".js-arrow-2",    ".js-arrow-3",    ".js-arrow-4",    ".js-arrow-5"],
-			FAQContainerClasses: [".js-container-1",".js-container-2",".js-container-3",".js-container-4",".js-container-5"],
-			FAQAnswerClasses: [   ".js-answer-1",   ".js-answer-2",   ".js-answer-3",   ".js-answer-4",   ".js-answer-5"],
+			FAQHolderClass: ".js-faq-holder",
+			FAQArrowClass: ".js-arrow",
+			FAQContainerClass: ".js-container",
+			FAQAnswerClass: ".js-answer",
         });
 
 	});

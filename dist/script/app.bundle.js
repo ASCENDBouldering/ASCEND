@@ -1,8 +1,7 @@
 //Hoofdmodule general functions
 const AscendUI = (function () {
-    let HeaderContent = null, MobileHeaderContent = null, FooterContent = null, ContentHolder = null, MobileNavBtn = null, MobileNav = null, MobileNavHider = null;
+    let HeaderContent = null, MobileHeaderContent = null, FooterContent = null, ContentHolder = null, MobileNavBtn = null, MobileNav = null, MobileNavHider = null, MobileNavBg = null, FAQHolder = null;
     const x = window.innerWidth, y = window.innerHeight, btnSize = 50;
-    let MobileNavEnabled = false;
 
     const IsMobile = () => {
         let check = false;
@@ -10,80 +9,73 @@ const AscendUI = (function () {
         return check;
     };
 
-    // const isMobile = () => {
-    //     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    // }
-
-    const AppSetup = function ({ HeaderClass, MobileHeaderClass, MobileNavBtnClass, MobileNavClass, MobileNavHiderClass, FooterClass, ContentClass, FAQArrowClasses, FAQAnswerClasses, FAQContainerClasses }) {
-        HeaderContent = document.querySelector(HeaderClass);
-
+    const AppSetup = function ({ HeaderClass, MobileHeaderClass, MobileNavBtnClass, MobileNavClass, MobileNavHiderClass, MobileNavBGClass, FooterClass, ContentClass, FAQHolderClass, FAQArrowClass, FAQAnswerClass, FAQContainerClass }) {
         let isMobile = IsMobile();
+
+        HeaderContent = document.querySelector(HeaderClass);
         HeaderContent.innerHTML = Header(isMobile);
-        if(isMobile){
+        if (isMobile) {
             MobileHeaderContent = document.querySelector(MobileHeaderClass);
             MobileHeaderContent.innerHTML = MobileHeader(isMobile);
+
+            MobileNavBtn = document.querySelector(MobileNavBtnClass)
+            MobileNav = document.querySelector(MobileNavClass)
+            MobileNavHider = document.querySelector(MobileNavHiderClass)
+            MobileNavBg = document.querySelector(MobileNavBGClass)
+
+            GenerateMobileNavBtnClick();
         }
-        
-        MobileNavBtn = document.querySelectorAll(MobileNavBtnClass)
-        MobileNav = document.querySelector(MobileNavClass)
-        MobileNavHider = document.querySelector(MobileNavHiderClass)
-        
+
+
         FooterContent = document.querySelector(FooterClass);
         FooterContent.innerHTML = Footer();
-        
+
+        FAQHolder = document.querySelector(FAQHolderClass);
+        FAQHolder.innerHTML = AscendModule.AppendFAQs();
+        GenerateFAQEventListeners(FAQArrowClass, FAQAnswerClass, FAQContainerClass);
+
         ContentHolder = document.querySelector(ContentClass);
-        GenerateFAQEventListeners(FAQArrowClasses, FAQAnswerClasses, FAQContainerClasses);
-        GenerateMobileNavBtnClick();
     }
 
-    const GenerateFAQEventListeners = (ArrowClasses, AnswerClasses, ContainerClasses) => {
-        for (let i = 0; i < ContainerClasses.length; i++) {
-            const arrow = document.querySelector(ArrowClasses[i]);
-            const answer = document.querySelector(AnswerClasses[i]);
-            const container = document.querySelector(ContainerClasses[i]);
+    const GenerateFAQEventListeners = (ArrowClass, AnswerClass, ContainerClass) => {
+        const arrows = document.querySelectorAll(ArrowClass);
+        const answers = document.querySelectorAll(AnswerClass);
+        const containers = document.querySelectorAll(ContainerClass);
+        for (let i = 0; i < containers.length; i++) {
+            const arrow = arrows[i];
+            const answer = answers[i];
+            const container = containers[i];
 
             container.addEventListener("click", () => {
-                if (container.classList.contains("first-time__question-container--checked")) {
-                    container.classList.add("first-time__question-container--unchecked")
-                    container.classList.remove("first-time__question-container--checked")
-
-                    answer.classList.add("first-time__answer--unchecked")
-                    answer.classList.remove("first-time__answer--checked")
-                }
-                else {
-                    container.classList.add("first-time__question-container--checked")
-                    container.classList.remove("first-time__question-container--unchecked")
-
-                    answer.classList.add("first-time__answer--checked")
-                    answer.classList.remove("first-time__answer--unchecked")
-                }
-
-                RepositionAbout()
+                container.classList.toggle("first-time__question-container--checked")
+                answer.classList.toggle("first-time__answer--checked")
             })
         }
     }
 
     const GenerateMobileNavBtnClick = () => {
-        for (let i = 0; i < MobileNavBtn.length; i++) {
-            const element = MobileNavBtn[i];
-            element.addEventListener('click', () => {
-                if(MobileNavEnabled){
-                    MobileNav.classList.remove("mobile-nav-container--enabled")
-                    MobileNavHider.classList.remove("mobile-nav-hider--enabled")
-                }
-                else{
-                    MobileNav.classList.add("mobile-nav-container--enabled")
-                    MobileNavHider.classList.add("mobile-nav-hider--enabled")
-                }
-                MobileNavEnabled = !MobileNavEnabled;
-            })
-        }
+        MobileNavBtn.addEventListener('click', () => {
+            MobileNav.classList.toggle("mobile-nav-container--enabled")
+            MobileNavHider.classList.toggle("mobile-nav-hider--enabled")
+            MobileNavBg.classList.toggle("mobile-nav-bg--enabled")
+            ToggleMenuBtn()
+        })
 
-        MobileNavHider.addEventListener('click', () =>{
+        MobileNavHider.addEventListener('click', () => {
             MobileNav.classList.remove("mobile-nav-container--enabled")
             MobileNavHider.classList.remove("mobile-nav-hider--enabled")
             MobileNavEnabled = false;
         })
+    }
+
+    const ToggleMenuBtn = () => {
+        const btnElement1 = MobileNavBtn.querySelector(".nav-button__element--top")
+        const btnElement2 = MobileNavBtn.querySelector(".nav-button__element--middle")
+        const btnElement3 = MobileNavBtn.querySelector(".nav-button__element--bottom")
+
+        btnElement1.classList.toggle("nav-button__element--top-toggled");
+        btnElement2.classList.toggle("nav-button__element--middle-toggled");
+        btnElement3.classList.toggle("nav-button__element--bottom-toggled");
     }
 
     return {
@@ -99,11 +91,12 @@ const Header = (isMobile) => {
 const MobileHeader = (isMobile) => {
 	const html = `
 		<div class="mobile-nav-hider js-mobile-nav--hider"></div>
+
+		<img class="mobile-nav-bg js-mobile-nav--bg" src="./assets/wall.svg" />
 		<div class="mobile-nav-container js-mobile-nav">
 			<div class="mobile-nav">
 				${HeaderItems(isMobile)}
 			</div>
-			${Button()}
 		</div>
 	`
 	return html
@@ -111,11 +104,13 @@ const MobileHeader = (isMobile) => {
 
 const Button = () => {
 	let html = `
-	<div class="header--mobile js-mobile-nav-btn">
-	
-	</div>
+		<div class="mobile-nav-btn js-mobile-nav-btn">
+			<div class="nav-button__element nav-button__element--top"></div>
+			<div class="nav-button__element nav-button__element--middle"></div>
+			<div class="nav-button__element nav-button__element--bottom"></div>
+		</div>
 	`
-return html;
+	return html;
 }
 
 const HeaderItems = (isMobile) => {
@@ -142,11 +137,80 @@ const Footer = () => {
     `
 	return html;
 }
-//secondary functions
-const PortfolioModule = (function(){
 
-    return{
-        
+const FAQItem = (element) => {
+	let html = `
+            <div class="first-time__question-container first-time__question-container--unchecked js-container">
+            <div class="first-time__question">
+                <h3>
+                    ${element.question}
+                </h3>
+                <div class="first-time__arrow js-arrow">
+
+                </div>
+            </div>
+            <div class="first-time__answer first-time__answer--unchecked js-answer">
+                <p>
+                    ${element.answer}
+                </p>
+            </div>
+        </div>
+            `
+
+	return html;
+}
+//secondary functions
+const AscendModule = (function () {
+    const FQAItems = [
+        {
+            question: "How can I join?",
+            answer: `If you want to become a member you can just send an email to
+								<span class="about__text--color">ascendbouldering@gmail.com</span> for more information,
+								or you can ask any member to refer you to <span class="about__text--color">Bram</span>.`,
+        },
+        {
+            question: "When do you go bouldering?",
+            answer: `This depends really. Most of us are students and our schedule changes at times.
+								However, most of the times some of us usually go at <span
+									class="about__text--color">Tuesday noon/evening</span>, <span
+									class="about__text--color">Thursday evenings</span>,
+								and <span class="about__text--color">Friday evenings</span>.`,
+        },
+        {
+            question: "How many members do you have?",
+            answer: `We are currently <span class="about__text--color">22 Members</span> strong of which most
+								people are <span class="about__text--color">students from Howest</span>`,
+        },
+        {
+            question: "What is expected of me?",
+            answer: `<span class="about__text--color">Nothing!</span>
+							When or with who you come is all your own decision, meaning you still choose everything
+							you'd like to do.`,
+        },
+        {
+            question: "How do you stay in touch with eachother?",
+            answer: `We currently have a <span class="about__text--color">WhatsApp group</span> where people are
+							actively saying when they can/would like to go bouldering, and if people would like to join.
+`,
+        },
+        {
+            question: "Do you offer any classes?",
+            answer: `We do not offer any classes, but we have experienced members that are always willing to
+							teach you some tips and tricks.`,
+        },
+    ]
+
+    const AppendFAQs = () => {
+        let html = ``;
+        FQAItems.forEach(element => {
+            html += FAQItem(element);
+        });
+
+        return html;
+    }
+
+    return {
+        AppendFAQs:AppendFAQs
     }
 
 })();
@@ -167,11 +231,13 @@ const DataAccess = (function () {
 			MobileNavBtnClass: ".js-mobile-nav-btn",
 			MobileNavClass: ".js-mobile-nav",
 			MobileNavHiderClass: ".js-mobile-nav--hider",
+			MobileNavBGClass: ".js-mobile-nav--bg",
 			FooterClass: ".footer",
 			ContentClass: ".content-holder",
-			FAQArrowClasses: [    ".js-arrow-1",    ".js-arrow-2",    ".js-arrow-3",    ".js-arrow-4",    ".js-arrow-5"],
-			FAQContainerClasses: [".js-container-1",".js-container-2",".js-container-3",".js-container-4",".js-container-5"],
-			FAQAnswerClasses: [   ".js-answer-1",   ".js-answer-2",   ".js-answer-3",   ".js-answer-4",   ".js-answer-5"],
+			FAQHolderClass: ".js-faq-holder",
+			FAQArrowClass: ".js-arrow",
+			FAQContainerClass: ".js-container",
+			FAQAnswerClass: ".js-answer",
         });
 
 	});

@@ -14,11 +14,6 @@
   .header__item--mobile{
     margin: var(--margin-s) var(--margin-l);
   }
-
-  .header--mobile{
-    width: 48px;
-    height: 48px;
-  }
   
   .mobile-nav{
     display: flex;
@@ -42,8 +37,8 @@
   }
   
   .mobile-nav-container{
-    background-color: var(--color-beta);
-    box-shadow: -3px 3px 6px #000;
+    // background-color: var(--color-beta);
+    // box-shadow: -3px 3px 6px #000;
     display: flex;
     position: fixed;
     right: 0;
@@ -54,11 +49,19 @@
   }
   
   .mobile-nav-container--enabled{
-    width: 60%;
+    width: 48%;
     padding: var(--margin-s);
+    padding-top: var(--margin-l);
   }
 
-  .mobile-nav-btn{
-    width: 48px;
-    height: 48px;
+  .mobile-nav-bg{
+    position: fixed;
+    top: 0;
+    right: -60%;
+    transition: 250ms;
+    height: 100vh;
+  }
+
+  .mobile-nav-bg--enabled{
+    right: 0;
   }

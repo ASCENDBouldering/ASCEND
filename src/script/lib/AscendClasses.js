@@ -6,11 +6,12 @@ const Header = (isMobile) => {
 const MobileHeader = (isMobile) => {
 	const html = `
 		<div class="mobile-nav-hider js-mobile-nav--hider"></div>
+
+		<img class="mobile-nav-bg js-mobile-nav--bg" src="./assets/wall.svg" />
 		<div class="mobile-nav-container js-mobile-nav">
 			<div class="mobile-nav">
 				${HeaderItems(isMobile)}
 			</div>
-			${Button()}
 		</div>
 	`
 	return html
@@ -18,11 +19,13 @@ const MobileHeader = (isMobile) => {
 
 const Button = () => {
 	let html = `
-	<div class="header--mobile js-mobile-nav-btn">
-	
-	</div>
+		<div class="mobile-nav-btn js-mobile-nav-btn">
+			<div class="nav-button__element nav-button__element--top"></div>
+			<div class="nav-button__element nav-button__element--middle"></div>
+			<div class="nav-button__element nav-button__element--bottom"></div>
+		</div>
 	`
-return html;
+	return html;
 }
 
 const HeaderItems = (isMobile) => {
@@ -47,5 +50,27 @@ const Footer = () => {
 		</div>
 		<p class="about__text--color">© COPYRIGHT 2021 BY BRAM ROBYN - EQUINOX</p>
     `
+	return html;
+}
+
+const FAQItem = (element) => {
+	let html = `
+            <div class="first-time__question-container first-time__question-container--unchecked js-container">
+            <div class="first-time__question">
+                <h3>
+                    ${element.question}
+                </h3>
+                <div class="first-time__arrow js-arrow">
+
+                </div>
+            </div>
+            <div class="first-time__answer first-time__answer--unchecked js-answer">
+                <p>
+                    ${element.answer}
+                </p>
+            </div>
+        </div>
+            `
+
 	return html;
 }

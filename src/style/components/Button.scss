@@ -1,0 +1,41 @@
+.mobile-nav-btn{
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin: 4px;
+    z-index: 2;
+  }
+  
+  .nav-button__element{
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    transition: 250ms;
+  }
+  
+  .nav-button__element--top{
+    top: 10%;
+  }
+  
+  .nav-button__element--middle{
+    top: calc(50%-1px);
+  } 
+  
+  .nav-button__element--bottom{
+    bottom: 10%;
+  }
+  
+  .nav-button__element--top-toggled{
+    transform: rotate(-45deg)translate(-5px, 6px);
+    opacity: 0
+  }
+  
+  .nav-button__element--middle-toggled{
+    transform: rotate(-45deg);
+  } 
+  
+  .nav-button__element--bottom-toggled{
+    transform: rotate(45deg) translate(-6px, -6px);
+  }
+  
