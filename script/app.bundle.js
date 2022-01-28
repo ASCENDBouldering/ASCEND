@@ -60,11 +60,11 @@ const AscendUI = (function () {
             MobileNavBg.classList.toggle("mobile-nav-bg--enabled")
             ToggleMenuBtn()
         })
-
+        
         MobileNavHider.addEventListener('click', () => {
             MobileNav.classList.remove("mobile-nav-container--enabled")
             MobileNavHider.classList.remove("mobile-nav-hider--enabled")
-            MobileNavEnabled = false;
+            MobileNavBg.classList.remove("mobile-nav-bg--enabled")
         })
     }
 
