@@ -39,6 +39,7 @@ const HeaderItems = (isMobile) => {
 {/* <a href="" class="header__item ${isMobile ? "header__item--mobile" : ""} js-schedules"><span class="content__unavailable">SCHEDULES</span></a>
 <a href="http://localhost:3000/merch.html" class="header__item ${isMobile ? "header__item--mobile" : ""} js-schedules"><span class="content__unavailable">MERCH</span></a> */}
 
+
 const Footer = () => {
 	const html = `
     <img class="footer__logo" src="./assets/logo2.png">
