@@ -1,6 +1,7 @@
 //Hoofdmodule general functions
 const AscendUI = (function () {
     let HeaderContent = null, MobileHeaderContent = null, FooterContent = null, ContentHolder = null, MobileNavBtn = null, MobileNav = null, MobileNavHider = null, MobileNavBg = null, FAQHolder = null;
+    let MerchHolder = null;
     const x = window.innerWidth, y = window.innerHeight, btnSize = 50;
 
     const IsMobile = () => {
@@ -9,7 +10,7 @@ const AscendUI = (function () {
         return check;
     };
 
-    const AppSetup = function ({ HeaderClass, MobileHeaderClass, MobileNavBtnClass, MobileNavClass, MobileNavHiderClass, MobileNavBGClass, FooterClass, ContentClass, FAQHolderClass, FAQArrowClass, FAQAnswerClass, FAQContainerClass }) {
+    const AppSetup = function ({ HeaderClass, MobileHeaderClass, MobileNavBtnClass, MobileNavClass, MobileNavHiderClass, MobileNavBGClass, FooterClass, ContentClass, FAQHolderClass, FAQArrowClass, FAQAnswerClass, FAQContainerClass, MerchClass }) {
         let isMobile = IsMobile();
 
         HeaderContent = document.querySelector(HeaderClass);
@@ -28,13 +29,22 @@ const AscendUI = (function () {
 
 
         FooterContent = document.querySelector(FooterClass);
-        FooterContent.innerHTML = Footer();
+        if (FooterContent != null) {
+            FooterContent.innerHTML = Footer();
+        }
 
         FAQHolder = document.querySelector(FAQHolderClass);
-        FAQHolder.innerHTML = AscendModule.AppendFAQs();
+        if (FAQHolder != null) {
+            FAQHolder.innerHTML = AscendModule.AppendFAQs();
+        }
         GenerateFAQEventListeners(FAQArrowClass, FAQAnswerClass, FAQContainerClass);
 
         ContentHolder = document.querySelector(ContentClass);
+
+        MerchHolder = document.querySelector(MerchClass);
+        if (MerchHolder != null) {
+            MerchHolder.innerHTML += AscendModule.AppendMerch();
+        }
     }
 
     const GenerateFAQEventListeners = (ArrowClass, AnswerClass, ContainerClass) => {
@@ -60,7 +70,7 @@ const AscendUI = (function () {
             MobileNavBg.classList.toggle("mobile-nav-bg--enabled")
             ToggleMenuBtn()
         })
-        
+
         MobileNavHider.addEventListener('click', () => {
             MobileNav.classList.remove("mobile-nav-container--enabled")
             MobileNavHider.classList.remove("mobile-nav-hider--enabled")

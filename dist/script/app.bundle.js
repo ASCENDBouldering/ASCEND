@@ -1,6 +1,7 @@
 //Hoofdmodule general functions
 const AscendUI = (function () {
     let HeaderContent = null, MobileHeaderContent = null, FooterContent = null, ContentHolder = null, MobileNavBtn = null, MobileNav = null, MobileNavHider = null, MobileNavBg = null, FAQHolder = null;
+    let MerchHolder = null;
     const x = window.innerWidth, y = window.innerHeight, btnSize = 50;
 
     const IsMobile = () => {
@@ -9,7 +10,7 @@ const AscendUI = (function () {
         return check;
     };
 
-    const AppSetup = function ({ HeaderClass, MobileHeaderClass, MobileNavBtnClass, MobileNavClass, MobileNavHiderClass, MobileNavBGClass, FooterClass, ContentClass, FAQHolderClass, FAQArrowClass, FAQAnswerClass, FAQContainerClass }) {
+    const AppSetup = function ({ HeaderClass, MobileHeaderClass, MobileNavBtnClass, MobileNavClass, MobileNavHiderClass, MobileNavBGClass, FooterClass, ContentClass, FAQHolderClass, FAQArrowClass, FAQAnswerClass, FAQContainerClass, MerchClass }) {
         let isMobile = IsMobile();
 
         HeaderContent = document.querySelector(HeaderClass);
@@ -28,13 +29,22 @@ const AscendUI = (function () {
 
 
         FooterContent = document.querySelector(FooterClass);
-        FooterContent.innerHTML = Footer();
+        if (FooterContent != null) {
+            FooterContent.innerHTML = Footer();
+        }
 
         FAQHolder = document.querySelector(FAQHolderClass);
-        FAQHolder.innerHTML = AscendModule.AppendFAQs();
+        if (FAQHolder != null) {
+            FAQHolder.innerHTML = AscendModule.AppendFAQs();
+        }
         GenerateFAQEventListeners(FAQArrowClass, FAQAnswerClass, FAQContainerClass);
 
         ContentHolder = document.querySelector(ContentClass);
+
+        MerchHolder = document.querySelector(MerchClass);
+        if (MerchHolder != null) {
+            MerchHolder.innerHTML += AscendModule.AppendMerch();
+        }
     }
 
     const GenerateFAQEventListeners = (ArrowClass, AnswerClass, ContainerClass) => {
@@ -60,7 +70,7 @@ const AscendUI = (function () {
             MobileNavBg.classList.toggle("mobile-nav-bg--enabled")
             ToggleMenuBtn()
         })
-        
+
         MobileNavHider.addEventListener('click', () => {
             MobileNav.classList.remove("mobile-nav-container--enabled")
             MobileNavHider.classList.remove("mobile-nav-hider--enabled")
@@ -117,13 +127,13 @@ const Button = () => {
 const HeaderItems = (isMobile) => {
 	const html = `
 	<a href="https://ascendbouldering.github.io/ASCEND/index.html#About" class="header__item ${isMobile ? "header__item--mobile" : ""} js-about">ABOUT</a>
+	<a href="http://localhost:3000/merch.html"                           class="header__item ${isMobile ? "header__item--mobile" : ""} js-merch">MERCH</a>
 	<a href="https://ascendbouldering.github.io/ASCEND/index.html#Contact" class="header__item ${isMobile ? "header__item--mobile" : ""} js-contact">CONTACT</a>
 	<a href="https://ascendbouldering.github.io/ASCEND/index.html#FirstTime" class="header__item ${isMobile ? "header__item--mobile" : ""} js-firsttime">FAQ</a>
 	`
 	return html
 }
-{/* <a href="" class="header__item ${isMobile ? "header__item--mobile" : ""} js-schedules"><span class="content__unavailable">SCHEDULES</span></a>
-<a href="http://localhost:3000/merch.html" class="header__item ${isMobile ? "header__item--mobile" : ""} js-schedules"><span class="content__unavailable">MERCH</span></a> */}
+{/* <a href="" class="header__item ${isMobile ? "header__item--mobile" : ""} js-schedules"><span class="content__unavailable">SCHEDULES</span></a> */}
 
 
 const Footer = () => {
@@ -161,7 +171,42 @@ const FAQItem = (element) => {
 
 	return html;
 }
+
+const MerchContainer = (htmlItems, isUnisex) => {
+	let html = `
+	<div>
+		<div class="merch-container">
+		${htmlItems}
+		</div>
+		${isUnisex ? MerchToggleBtn() : ``}
+	</div>
+	`;
+
+	return html;
+}
+
+const MerchItem = (item) => {
+	let html = `
+		<img class="merch-item" src="${item}" />
+	`;
+
+	return html;
+}
+
+{/* <div class="merch-item__button js-merchToggleBtn">Btn</div> */}
+const MerchToggleBtn = () => {
+	let html = `
+	<div class="merch-item__button-container">
+		<label class="toggle">
+			<input class="toggle-checkbox" type="checkbox" checked>
+			<div class="toggle-switch"></div>
+			<span class="toggle-label">Show Male</span>
+		</label>
+	</div>`
+	return html;
+}
 //secondary functions
+
 const AscendModule = (function () {
     const FQAItems = [
         {
@@ -202,6 +247,19 @@ const AscendModule = (function () {
         },
     ]
 
+    const MerchItems = [
+        { IsUnisex:true, Name: "Unisex Joggers Heather-Black", Folder: "./assets/merch/pants1/", Pictures: ["unisex-joggers-black-heather-left-front-61a27f488d9e2.png", "unisex-joggers-black-heather-left-front-61a27f488db1b.png", "unisex-joggers-black-heather-left-leg-61a27f488d4ce.png", "unisex-joggers-black-heather-left-leg-61a27f488d73b.png"] },
+        { IsUnisex:false, Name: "Unisex TriBlend T-Shirt Black", Folder: "./assets/merch/shirt2/", 
+            Male:{Pictures: ["unisex-tri-blend-t-shirt-solid-black-triblend-back-61a27fee3b07f.png", "unisex-tri-blend-t-shirt-solid-black-triblend-front-61a27fee3aeba.png", "unisex-tri-blend-t-shirt-solid-black-triblend-left-61a27fee3b3c7.png", "unisex-tri-blend-t-shirt-solid-black-triblend-left-front-61a27fee3b893.png"]},
+            Female:{Pictures: ["unisex-tri-blend-t-shirt-solid-black-triblend-back-61a27fee3b224.png", "unisex-tri-blend-t-shirt-solid-black-triblend-front-61a27fee3ac30.png", "unisex-tri-blend-t-shirt-solid-black-triblend-left-61a27fee3b6f3.png", "unisex-tri-blend-t-shirt-solid-black-triblend-left-front-61a27fee3b563.png"]} 
+        },
+        { IsUnisex:true, Name: "Unisex Staple T-Shirt Heather-Black", Folder: "./assets/merch/shirt1/", Pictures: ["unisex-staple-t-shirt-black-heather-back-61a283538c616.png", "unisex-staple-t-shirt-black-heather-front-61a283538bee8.png", "unisex-staple-t-shirt-black-heather-left-61a283538c8ba.png", "unisex-staple-t-shirt-black-heather-left-front-61a283538cb2c.png"] },
+        { IsUnisex:false, Name: "Unisex Premium Hoodie Black", Folder: "./assets/merch/sweater/", 
+            Male:{Pictures: ["unisex-premium-hoodie-black-back-61a280c5cf34c.png","unisex-premium-hoodie-black-front-61a280c5cf0f9.png", "unisex-premium-hoodie-black-left-61a280c5cf7a2.png", "unisex-premium-hoodie-black-left-front-61a280c5cfe29.png"]},
+            Female:{Pictures: ["unisex-premium-hoodie-black-back-61a280c5cf564.png", "unisex-premium-hoodie-black-front-61a280c5cee03.png", "unisex-premium-hoodie-black-left-61a280c5cfc0d.png", "unisex-premium-hoodie-black-left-front-61a280c5cf9e4.png"]} 
+        },
+        { IsUnisex:true, Name: "Unisex Lightweight Zip Hoodie Black", Folder: "./assets/merch/sweater2/",  Pictures: ["unisex-lightweight-zip-hoodie-charcoal-black-triblend-back-61a27fb37059a.png", "unisex-lightweight-zip-hoodie-charcoal-black-triblend-back-61a27fb370784.png", "unisex-lightweight-zip-hoodie-charcoal-black-triblend-front-61a27fb370200.png", "unisex-lightweight-zip-hoodie-charcoal-black-triblend-front-61a27fb370427.png"]},
+    ]
     const AppendFAQs = () => {
         let html = ``;
         FQAItems.forEach(element => {
@@ -211,8 +269,42 @@ const AscendModule = (function () {
         return html;
     }
 
+
+    const AppendMerchItems = () => {
+        let htmlContainer = ``;
+        let htmlItem = ``;
+
+        MerchItems.forEach(item => {
+            htmlItem = ``
+            if(item.IsUnisex){
+                item.Pictures.forEach(picture => {
+                    htmlItem += MerchItem(item.Folder + picture);
+                });
+            }
+            else{
+                item.Male.Pictures.forEach(picture => {
+                    htmlItem += MerchItem(item.Folder + picture);
+                });
+            }
+            htmlContainer += MerchContainer(htmlItem, item.IsUnisex);
+        });
+
+        return htmlContainer;
+    }
+
+    const AppendMerch = () => {
+        let html = `
+            <div class="merch">
+                ${AppendMerchItems()}
+            </div>
+        `
+
+        return html;
+    }
+
     return {
-        AppendFAQs:AppendFAQs
+        AppendFAQs: AppendFAQs,
+        AppendMerch: AppendMerch
     }
 
 })();
@@ -223,7 +315,6 @@ const DataAccess = (function () {
     };
 })();
 (function() {
-
 	document.addEventListener('DOMContentLoaded', () => {
 		AscendUI.IsMobile()
 
@@ -240,6 +331,7 @@ const DataAccess = (function () {
 			FAQArrowClass: ".js-arrow",
 			FAQContainerClass: ".js-container",
 			FAQAnswerClass: ".js-answer",
+			MerchClass: ".merch-holder",
         });
 
 	});

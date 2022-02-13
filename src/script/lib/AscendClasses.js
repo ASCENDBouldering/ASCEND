@@ -31,13 +31,13 @@ const Button = () => {
 const HeaderItems = (isMobile) => {
 	const html = `
 	<a href="https://ascendbouldering.github.io/ASCEND/index.html#About" class="header__item ${isMobile ? "header__item--mobile" : ""} js-about">ABOUT</a>
+	<a href="http://localhost:3000/merch.html"                           class="header__item ${isMobile ? "header__item--mobile" : ""} js-merch">MERCH</a>
 	<a href="https://ascendbouldering.github.io/ASCEND/index.html#Contact" class="header__item ${isMobile ? "header__item--mobile" : ""} js-contact">CONTACT</a>
 	<a href="https://ascendbouldering.github.io/ASCEND/index.html#FirstTime" class="header__item ${isMobile ? "header__item--mobile" : ""} js-firsttime">FAQ</a>
 	`
 	return html
 }
-{/* <a href="" class="header__item ${isMobile ? "header__item--mobile" : ""} js-schedules"><span class="content__unavailable">SCHEDULES</span></a>
-<a href="http://localhost:3000/merch.html" class="header__item ${isMobile ? "header__item--mobile" : ""} js-schedules"><span class="content__unavailable">MERCH</span></a> */}
+{/* <a href="" class="header__item ${isMobile ? "header__item--mobile" : ""} js-schedules"><span class="content__unavailable">SCHEDULES</span></a> */}
 
 
 const Footer = () => {
@@ -73,5 +73,39 @@ const FAQItem = (element) => {
         </div>
             `
 
+	return html;
+}
+
+const MerchContainer = (htmlItems, isUnisex) => {
+	let html = `
+	<div>
+		<div class="merch-container">
+		${htmlItems}
+		</div>
+		${isUnisex ? MerchToggleBtn() : ``}
+	</div>
+	`;
+
+	return html;
+}
+
+const MerchItem = (item) => {
+	let html = `
+		<img class="merch-item" src="${item}" />
+	`;
+
+	return html;
+}
+
+{/* <div class="merch-item__button js-merchToggleBtn">Btn</div> */}
+const MerchToggleBtn = () => {
+	let html = `
+	<div class="merch-item__button-container">
+		<label class="toggle">
+			<input class="toggle-checkbox" type="checkbox" checked>
+			<div class="toggle-switch"></div>
+			<span class="toggle-label">Show Male</span>
+		</label>
+	</div>`
 	return html;
 }

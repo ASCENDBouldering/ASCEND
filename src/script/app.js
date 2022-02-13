@@ -1,5 +1,4 @@
 (function() {
-
 	document.addEventListener('DOMContentLoaded', () => {
 		AscendUI.IsMobile()
 
@@ -16,6 +15,7 @@
 			FAQArrowClass: ".js-arrow",
 			FAQContainerClass: ".js-container",
 			FAQAnswerClass: ".js-answer",
+			MerchClass: ".merch-holder",
         });
 
 	});

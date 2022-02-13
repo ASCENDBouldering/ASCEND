@@ -1,4 +1,5 @@
 //secondary functions
+
 const AscendModule = (function () {
     const FQAItems = [
         {
@@ -39,6 +40,19 @@ const AscendModule = (function () {
         },
     ]
 
+    const MerchItems = [
+        { IsUnisex:true, Name: "Unisex Joggers Heather-Black", Folder: "./assets/merch/pants1/", Pictures: ["unisex-joggers-black-heather-left-front-61a27f488d9e2.png", "unisex-joggers-black-heather-left-front-61a27f488db1b.png", "unisex-joggers-black-heather-left-leg-61a27f488d4ce.png", "unisex-joggers-black-heather-left-leg-61a27f488d73b.png"] },
+        { IsUnisex:false, Name: "Unisex TriBlend T-Shirt Black", Folder: "./assets/merch/shirt2/", 
+            Male:{Pictures: ["unisex-tri-blend-t-shirt-solid-black-triblend-back-61a27fee3b07f.png", "unisex-tri-blend-t-shirt-solid-black-triblend-front-61a27fee3aeba.png", "unisex-tri-blend-t-shirt-solid-black-triblend-left-61a27fee3b3c7.png", "unisex-tri-blend-t-shirt-solid-black-triblend-left-front-61a27fee3b893.png"]},
+            Female:{Pictures: ["unisex-tri-blend-t-shirt-solid-black-triblend-back-61a27fee3b224.png", "unisex-tri-blend-t-shirt-solid-black-triblend-front-61a27fee3ac30.png", "unisex-tri-blend-t-shirt-solid-black-triblend-left-61a27fee3b6f3.png", "unisex-tri-blend-t-shirt-solid-black-triblend-left-front-61a27fee3b563.png"]} 
+        },
+        { IsUnisex:true, Name: "Unisex Staple T-Shirt Heather-Black", Folder: "./assets/merch/shirt1/", Pictures: ["unisex-staple-t-shirt-black-heather-back-61a283538c616.png", "unisex-staple-t-shirt-black-heather-front-61a283538bee8.png", "unisex-staple-t-shirt-black-heather-left-61a283538c8ba.png", "unisex-staple-t-shirt-black-heather-left-front-61a283538cb2c.png"] },
+        { IsUnisex:false, Name: "Unisex Premium Hoodie Black", Folder: "./assets/merch/sweater/", 
+            Male:{Pictures: ["unisex-premium-hoodie-black-back-61a280c5cf34c.png","unisex-premium-hoodie-black-front-61a280c5cf0f9.png", "unisex-premium-hoodie-black-left-61a280c5cf7a2.png", "unisex-premium-hoodie-black-left-front-61a280c5cfe29.png"]},
+            Female:{Pictures: ["unisex-premium-hoodie-black-back-61a280c5cf564.png", "unisex-premium-hoodie-black-front-61a280c5cee03.png", "unisex-premium-hoodie-black-left-61a280c5cfc0d.png", "unisex-premium-hoodie-black-left-front-61a280c5cf9e4.png"]} 
+        },
+        { IsUnisex:true, Name: "Unisex Lightweight Zip Hoodie Black", Folder: "./assets/merch/sweater2/",  Pictures: ["unisex-lightweight-zip-hoodie-charcoal-black-triblend-back-61a27fb37059a.png", "unisex-lightweight-zip-hoodie-charcoal-black-triblend-back-61a27fb370784.png", "unisex-lightweight-zip-hoodie-charcoal-black-triblend-front-61a27fb370200.png", "unisex-lightweight-zip-hoodie-charcoal-black-triblend-front-61a27fb370427.png"]},
+    ]
     const AppendFAQs = () => {
         let html = ``;
         FQAItems.forEach(element => {
@@ -48,8 +62,42 @@ const AscendModule = (function () {
         return html;
     }
 
+
+    const AppendMerchItems = () => {
+        let htmlContainer = ``;
+        let htmlItem = ``;
+
+        MerchItems.forEach(item => {
+            htmlItem = ``
+            if(item.IsUnisex){
+                item.Pictures.forEach(picture => {
+                    htmlItem += MerchItem(item.Folder + picture);
+                });
+            }
+            else{
+                item.Male.Pictures.forEach(picture => {
+                    htmlItem += MerchItem(item.Folder + picture);
+                });
+            }
+            htmlContainer += MerchContainer(htmlItem, item.IsUnisex);
+        });
+
+        return htmlContainer;
+    }
+
+    const AppendMerch = () => {
+        let html = `
+            <div class="merch">
+                ${AppendMerchItems()}
+            </div>
+        `
+
+        return html;
+    }
+
     return {
-        AppendFAQs:AppendFAQs
+        AppendFAQs: AppendFAQs,
+        AppendMerch: AppendMerch
     }
 
 })();
