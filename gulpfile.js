@@ -68,3 +68,5 @@ exports.serve = serve;
 exports.scripts = scripts;
 
 exports.default = serve;
+
+//npx gulp serve -> to run

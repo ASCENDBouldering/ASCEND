@@ -1,8 +1,22 @@
 .footer{
-    font-size: calc(var(--font-sise-s)/2);
+    font-size: calc(var(--font-sise-s)/1.5);
     text-align: center;
 }
 
 .footer__logo{
     height: 3rem;
+}
+
+.footer__container{
+    margin: var(--margin-l);
+}
+
+.footer__logo--fb{
+    height: 15px;
+    
+}
+
+.footer__link{
+    text-decoration: none;
+
 }
