@@ -44,6 +44,7 @@ const AscendUI = (function () {
         MerchHolder = document.querySelector(MerchClass);
         if (MerchHolder != null) {
             MerchHolder.innerHTML += AscendModule.AppendMerch();
+            GenerateToggleBtnListeners();
         }
     }
 
@@ -87,6 +88,24 @@ const AscendUI = (function () {
         btnElement1.classList.toggle("nav-button__element--top-toggled");
         btnElement2.classList.toggle("nav-button__element--middle-toggled");
         btnElement3.classList.toggle("nav-button__element--bottom-toggled");
+    }
+
+    const GenerateToggleBtnListeners = () => {
+        let checkBoxes = document.querySelectorAll('.toggle-checkbox');
+        for (let i = 0; i < checkBoxes.length; i++) {
+            const element = checkBoxes[i];
+            element.addEventListener("change", () => {
+                let merchContainer = document.querySelector(`.js-merch-${i}`)
+                let id= parseInt(merchContainer.id);
+                
+                if(element.checked){
+                    merchContainer.innerHTML = AscendModule.GenerateMalePictures(id);
+                }
+                else{
+                    merchContainer.innerHTML = AscendModule.GenerateMalePictures(id);
+                }
+            })
+        }
     }
 
     return {
@@ -138,14 +157,14 @@ const HeaderItems = (isMobile) => {
 
 const Footer = () => {
 	const html = `
-    <img class="footer__logo" src="./assets/logo2.png">
+    <img class="footer__logo" src="./assets/LogoV2.png">
 		<div class="footer__container about__text--color">
 			<a class="footer__link about__text--color" href="mailto:Ascendbouldering@gmail.com">
-				Ascendbouldering@gmail.com </a> | <a class="footer__link about__text--color js-rules">Rules</a> | <a
+				Ascendbouldering@gmail.com </a> | <a
 				class="footer__link about__text--color" href="https://www.facebook.com/ASCENDBouldering"> <img
 					class="footer__logo--fb" src="./assets/fb.png"> </a> </p>
 		</div>
-		<p class="about__text--color">© COPYRIGHT 2021 BY BRAM ROBYN - EQUINOX</p>
+		<p class="about__text--color">© COPYRIGHT 2023 AND CREATION BY <a class="footer__link about__text--color" style="color: white;" href="https://www.linkedin.com/in/bram-robyn">BRAM ROBYN - EQUINOX</a></p>
     `
 	return html;
 }
@@ -172,13 +191,13 @@ const FAQItem = (element) => {
 	return html;
 }
 
-const MerchContainer = (htmlItems, isUnisex) => {
+const MerchContainer = (htmlItems, isUnisex, i, i2) => {
 	let html = `
 	<div>
-		<div class="merch-container">
+		<div class="merch-container js-merch-${i}" id="${i2}">
 		${htmlItems}
 		</div>
-		${isUnisex ? MerchToggleBtn() : ``}
+		${isUnisex ? MerchToggleBtn(i) : ``}
 	</div>
 	`;
 
@@ -194,11 +213,11 @@ const MerchItem = (item) => {
 }
 
 {/* <div class="merch-item__button js-merchToggleBtn">Btn</div> */}
-const MerchToggleBtn = () => {
+const MerchToggleBtn = (i) => {
 	let html = `
 	<div class="merch-item__button-container">
 		<label class="toggle">
-			<input class="toggle-checkbox" type="checkbox" checked>
+			<input class="toggle-checkbox js-toggle-${i}" type="checkbox" checked>
 			<div class="toggle-switch"></div>
 			<span class="toggle-label">Show Male</span>
 		</label>
@@ -217,27 +236,26 @@ const AscendModule = (function () {
         },
         {
             question: "When do you go bouldering?",
-            answer: `This depends really. Most of us are students and our schedule changes at times.
-								However, most of the times some of us usually go at <span
-									class="about__text--color">Tuesday noon/evening</span>, <span
-									class="about__text--color">Thursday evenings</span>,
-								and <span class="about__text--color">Friday evenings</span>.`,
+            answer: `Generally, most of us go on <span
+									class="about__text--color">Monday, and Wednesday Evening at 6PM</span>.
+                                    These times will change every semester depending on the people's class schedules`,
         },
         {
-            question: "How many members do you have?",
-            answer: `We are currently <span class="about__text--color">22 Members</span> strong of which most
-								people are <span class="about__text--color">students from Howest</span>`,
+            question: "What do you do in ASCEND?",
+            answer: `Besides the usual bouldering, we often go lead-climbing together as well. 
+            <br>What is more, this coming year some of us will also participate in some competitions.
+            <br>Future wise, we will also look into social gatherings (like a BBQ).`,
         },
         {
             question: "What is expected of me?",
             answer: `<span class="about__text--color">Nothing!</span>
-							When or with who you come is all your own decision, meaning you still choose everything
-							you'd like to do.`,
+							When, with who, and how much you come is all your own decision! 
+                            <br>We understand agendas can be full/busy so we want to give everyone the freedom of their own choosing.`,
         },
         {
             question: "How do you stay in touch with eachother?",
-            answer: `We currently have a <span class="about__text--color">WhatsApp group</span> where people are
-							actively saying when they can/would like to go bouldering, and if people would like to join.
+            answer: `We currently have an active and friendly <span class="about__text--color">WhatsApp group</span> where people can say
+             when they can/would like to go bouldering, <br>and if people would like to join them or not.
 `,
         },
         {
@@ -260,6 +278,7 @@ const AscendModule = (function () {
         },
         { IsUnisex:true, Name: "Unisex Lightweight Zip Hoodie Black", Folder: "./assets/merch/sweater2/",  Pictures: ["unisex-lightweight-zip-hoodie-charcoal-black-triblend-back-61a27fb37059a.png", "unisex-lightweight-zip-hoodie-charcoal-black-triblend-back-61a27fb370784.png", "unisex-lightweight-zip-hoodie-charcoal-black-triblend-front-61a27fb370200.png", "unisex-lightweight-zip-hoodie-charcoal-black-triblend-front-61a27fb370427.png"]},
     ]
+
     const AppendFAQs = () => {
         let html = ``;
         FQAItems.forEach(element => {
@@ -269,10 +288,11 @@ const AscendModule = (function () {
         return html;
     }
 
-
     const AppendMerchItems = () => {
         let htmlContainer = ``;
         let htmlItem = ``;
+        let i = -1;
+        let i2 = 0;
 
         MerchItems.forEach(item => {
             htmlItem = ``
@@ -285,8 +305,10 @@ const AscendModule = (function () {
                 item.Male.Pictures.forEach(picture => {
                     htmlItem += MerchItem(item.Folder + picture);
                 });
+                i++;
             }
-            htmlContainer += MerchContainer(htmlItem, item.IsUnisex);
+            htmlContainer += MerchContainer(htmlItem, item.IsUnisex, i, i2);
+            i2++;
         });
 
         return htmlContainer;
@@ -302,9 +324,26 @@ const AscendModule = (function () {
         return html;
     }
 
+    const GenerateMalePictures = (id) => {
+        let htmlItem = ``
+        MerchItems[id].Male.Pictures.forEach(picture => {
+            htmlItem += MerchItem(item.Folder + picture);
+        });
+        return MerchContainer(htmlItem, item.IsUnisex, i);
+    }
+    const GenerateFemalePictures = (id) => {
+        let htmlItem = ``
+        MerchItems[id].Female.Pictures.forEach(picture => {
+            htmlItem += MerchItem(item.Folder + picture);
+        });
+        return MerchContainer(htmlItem, item.IsUnisex, i);
+    }
+
     return {
         AppendFAQs: AppendFAQs,
-        AppendMerch: AppendMerch
+        AppendMerch: AppendMerch,
+        GenerateMalePictures:GenerateMalePictures,
+        GenerateFemalePictures:GenerateFemalePictures
     }
 
 })();

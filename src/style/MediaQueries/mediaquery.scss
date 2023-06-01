@@ -16,7 +16,7 @@
 @media (min-width: 370px) {
     .header{
         margin: var(--margin-l);
-        margin-bottom: calc(var(--margin-xl)*6 - var(--margin-l));
+        margin-bottom: calc(var(--margin-xl)*3 - var(--margin-l));
     }
 
     .landing__container--title{
@@ -63,7 +63,7 @@
 @media (min-width: 408px) {
     .header{
         margin: var(--margin-l);
-        margin-bottom: calc(var(--margin-xl)*6 - var(--margin-l));
+        margin-bottom: calc(var(--margin-xl)*3 - var(--margin-l));
     }
 
     .landing__container--title{
@@ -167,11 +167,11 @@
     }
     
     .landing{
-        margin: calc(var(--margin-xxl)*2.4) 0;
+        margin: calc(var(--margin-xxl)) 0;
     }
 
     .landing__logo{
-        height: 400px;
+        height: 600px;
     }
     
     .about__text{

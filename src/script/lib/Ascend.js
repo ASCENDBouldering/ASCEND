@@ -44,6 +44,7 @@ const AscendUI = (function () {
         MerchHolder = document.querySelector(MerchClass);
         if (MerchHolder != null) {
             MerchHolder.innerHTML += AscendModule.AppendMerch();
+            GenerateToggleBtnListeners();
         }
     }
 
@@ -87,6 +88,24 @@ const AscendUI = (function () {
         btnElement1.classList.toggle("nav-button__element--top-toggled");
         btnElement2.classList.toggle("nav-button__element--middle-toggled");
         btnElement3.classList.toggle("nav-button__element--bottom-toggled");
+    }
+
+    const GenerateToggleBtnListeners = () => {
+        let checkBoxes = document.querySelectorAll('.toggle-checkbox');
+        for (let i = 0; i < checkBoxes.length; i++) {
+            const element = checkBoxes[i];
+            element.addEventListener("change", () => {
+                let merchContainer = document.querySelector(`.js-merch-${i}`)
+                let id= parseInt(merchContainer.id);
+                
+                if(element.checked){
+                    merchContainer.innerHTML = AscendModule.GenerateMalePictures(id);
+                }
+                else{
+                    merchContainer.innerHTML = AscendModule.GenerateMalePictures(id);
+                }
+            })
+        }
     }
 
     return {

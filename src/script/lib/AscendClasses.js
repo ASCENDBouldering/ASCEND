@@ -42,14 +42,14 @@ const HeaderItems = (isMobile) => {
 
 const Footer = () => {
 	const html = `
-    <img class="footer__logo" src="./assets/logo2.png">
+    <img class="footer__logo" src="./assets/LogoV2.png">
 		<div class="footer__container about__text--color">
 			<a class="footer__link about__text--color" href="mailto:Ascendbouldering@gmail.com">
-				Ascendbouldering@gmail.com </a> | <a class="footer__link about__text--color js-rules">Rules</a> | <a
+				Ascendbouldering@gmail.com </a> | <a
 				class="footer__link about__text--color" href="https://www.facebook.com/ASCENDBouldering"> <img
 					class="footer__logo--fb" src="./assets/fb.png"> </a> </p>
 		</div>
-		<p class="about__text--color">© COPYRIGHT 2021 BY BRAM ROBYN - EQUINOX</p>
+		<p class="about__text--color">© COPYRIGHT 2023 AND CREATION BY <a class="footer__link about__text--color" style="color: white;" href="https://www.linkedin.com/in/bram-robyn">BRAM ROBYN - EQUINOX</a></p>
     `
 	return html;
 }
@@ -76,13 +76,13 @@ const FAQItem = (element) => {
 	return html;
 }
 
-const MerchContainer = (htmlItems, isUnisex) => {
+const MerchContainer = (htmlItems, isUnisex, i, i2) => {
 	let html = `
 	<div>
-		<div class="merch-container">
+		<div class="merch-container js-merch-${i}" id="${i2}">
 		${htmlItems}
 		</div>
-		${isUnisex ? MerchToggleBtn() : ``}
+		${isUnisex ? MerchToggleBtn(i) : ``}
 	</div>
 	`;
 
@@ -98,11 +98,11 @@ const MerchItem = (item) => {
 }
 
 {/* <div class="merch-item__button js-merchToggleBtn">Btn</div> */}
-const MerchToggleBtn = () => {
+const MerchToggleBtn = (i) => {
 	let html = `
 	<div class="merch-item__button-container">
 		<label class="toggle">
-			<input class="toggle-checkbox" type="checkbox" checked>
+			<input class="toggle-checkbox js-toggle-${i}" type="checkbox" checked>
 			<div class="toggle-switch"></div>
 			<span class="toggle-label">Show Male</span>
 		</label>
